@@ -1,7 +1,7 @@
 import { deleteNote, getNotes } from "@/services/noteService";
 import { Feather, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router/build/hooks";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Alert,
@@ -17,10 +17,6 @@ import {
   View,
 } from "react-native";
 
-// This component uses NativeWind classes (Tailwind for React Native)
-// Install: expo install @expo/vector-icons
-// NativeWind setup: https://www.nativewind.dev/
-
 type Note = {
   id: string;
   title: string;
@@ -31,23 +27,17 @@ type Note = {
 };
 
 export default function NoteAppHome() {
-  const router = useRouter()
+  const router = useRouter();
   const [query, setQuery] = useState("");
-  
   const [modalVisible, setModalVisible] = useState(false);
   const [newTitle, setNewTitle] = useState("");
   const [newBody, setNewBody] = useState("");
   const [isSaving, setIsSaving] = useState(false);
   const [notes, setNotes] = useState<any[]>([]);
 
-  
-
-  
-
   async function handleSaveNote() {
     if (!newTitle.trim() && !newBody.trim()) return;
     setIsSaving(true);
-    // fake network delay
     await new Promise((r) => setTimeout(r, 600));
     const note: Note = {
       id: Date.now().toString(),
@@ -57,29 +47,14 @@ export default function NoteAppHome() {
       color: sampleColors[Math.floor(Math.random() * sampleColors.length)],
       updatedAt: new Date().toISOString(),
     };
-    
+
+    setNotes((prev) => [note, ...prev]); // <-- add to local state
+
     setNewBody("");
     setNewTitle("");
     setModalVisible(false);
     setIsSaving(false);
   }
-  const loadNotes = async () => {
-      const snap = await getNotes();
-      const data = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-      setNotes(data);
-    };
-  
-    useEffect(() => {
-      loadNotes();
-    }, []);
-
-
-    const handleDelete = async (id: string) => {
-        Alert.alert("Delete", "Are you sure?", [
-          { text: "Cancel" },
-          { text: "Delete", onPress: async () => { await deleteNote(id); loadNotes(); } },
-        ]);
-      };
 
   function renderNoteCard({ item }: { item: Note }) {
     return (
@@ -88,13 +63,13 @@ export default function NoteAppHome() {
         className="rounded-2xl p-4 mb-4"
         style={{ backgroundColor: item.color || "#ffffff" }}
         onPress={() => {
-          // navigate to details or open modal — placeholder
           alert(item.title);
         }}
       >
         <View className="flex-row justify-between items-start">
-          <Text className="text-lg font-semibold text-gray-900">{item.title}</Text>
-          
+          <Text className="text-lg font-semibold text-gray-900">
+            {item.title}
+          </Text>
         </View>
         <Text numberOfLines={3} className="text-sm text-gray-800 mt-2">
           {item.body}
@@ -107,7 +82,9 @@ export default function NoteAppHome() {
     <SafeAreaView className="flex-1 bg-slate-50">
       <View className="px-6 pt-6">
         <Text className="text-3xl font-extrabold text-slate-800">My Notes</Text>
-        <Text className="text-sm text-slate-500 mt-1">Quickly capture ideas, to-dos and reminders.</Text>
+        <Text className="text-sm text-slate-500 mt-1">
+          Quickly capture ideas, to-dos and reminders.
+        </Text>
 
         {/* Search */}
         <View className="mt-4 flex-row items-center bg-white rounded-2xl p-2 shadow">
@@ -118,7 +95,11 @@ export default function NoteAppHome() {
             value={query}
             onChangeText={setQuery}
           />
-          <TouchableOpacity onPress={() => { setQuery(""); }}>
+          <TouchableOpacity
+            onPress={() => {
+              setQuery("");
+            }}
+          >
             <Feather name="x" size={18} color="#9ca3af" />
           </TouchableOpacity>
         </View>
@@ -135,22 +116,44 @@ export default function NoteAppHome() {
               <Text className="ml-2 text-sm text-slate-700">Filter</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity className="bg-white px-3 py-2 rounded-2xl shadow flex-row items-center" onPress={() => router.push("/(dashboard)/note")}>
+          <TouchableOpacity
+            className="bg-white px-3 py-2 rounded-2xl shadow flex-row items-center"
+            onPress={() => router.push("/(dashboard)/note")}
+          >
             <MaterialIcons name="note-add" size={16} color="#06b6d4" />
             <Text className="ml-2 text-sm text-slate-700">Add Note</Text>
           </TouchableOpacity>
         </View>
-
-        
       </View>
-      
 
       {/* Content */}
       <View className="px-6 mt-4 flex-1">
-        
-
         <View className="flex-1 mt-4">
-          
+          {notes.length === 0 ? (
+            // Empty state
+            <View className="flex-1 items-center justify-center">
+              <Ionicons name="document-text-outline" size={64} color="#9ca3af" />
+              <Text className="mt-4 text-lg font-medium text-gray-600">
+                No notes yet
+              </Text>
+              <Text className="mt-1 text-sm text-gray-400">
+                Start by creating a new note
+              </Text>
+            </View>
+          ) : (
+            // Notes list
+            <FlatList
+              data={notes.filter(
+                (n) =>
+                  n.title.toLowerCase().includes(query.toLowerCase()) ||
+                  n.body.toLowerCase().includes(query.toLowerCase())
+              )}
+              renderItem={renderNoteCard}
+              keyExtractor={(item) => item.id}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{ paddingBottom: 120 }}
+            />
+          )}
         </View>
       </View>
 
@@ -167,8 +170,14 @@ export default function NoteAppHome() {
 
       {/* Add Note Modal */}
       <Modal animationType="slide" visible={modalVisible} transparent>
-        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} className="flex-1 justify-end">
-          <View className="bg-white rounded-t-3xl p-6 shadow-xl" style={{ minHeight: 320 }}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          className="flex-1 justify-end"
+        >
+          <View
+            className="bg-white rounded-t-3xl p-6 shadow-xl"
+            style={{ minHeight: 320 }}
+          >
             <View className="flex-row justify-between items-center">
               <Text className="text-lg font-semibold">New Note</Text>
               <Pressable onPress={() => setModalVisible(false)}>
@@ -194,11 +203,21 @@ export default function NoteAppHome() {
             />
 
             <View className="mt-4 flex-row justify-end space-x-3">
-              <TouchableOpacity onPress={() => setModalVisible(false)} className="px-4 py-2 rounded-xl bg-gray-100">
+              <TouchableOpacity
+                onPress={() => setModalVisible(false)}
+                className="px-4 py-2 rounded-xl bg-gray-100"
+              >
                 <Text className="text-sm text-gray-700">Cancel</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={handleSaveNote} className="px-4 py-2 rounded-xl bg-blue-600">
-                {isSaving ? <ActivityIndicator color="#fff" /> : <Text className="text-sm text-white">Save</Text>}
+              <TouchableOpacity
+                onPress={handleSaveNote}
+                className="px-4 py-2 rounded-xl bg-blue-600"
+              >
+                {isSaving ? (
+                  <ActivityIndicator color="#fff" />
+                ) : (
+                  <Text className="text-sm text-white">Save</Text>
+                )}
               </TouchableOpacity>
             </View>
           </View>
@@ -208,10 +227,5 @@ export default function NoteAppHome() {
   );
 }
 
-
 // -------------------- helpers & sample data --------------------
 const sampleColors = ["#fff7ed", "#ecfeff", "#eef2ff", "#ecfccb", "#fff1f2"];
-
-
-
-
