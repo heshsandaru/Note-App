@@ -35,6 +35,9 @@ export default function NoteAppHome() {
   const [isSaving, setIsSaving] = useState(false);
   const [notes, setNotes] = useState<any[]>([]);
 
+
+  
+
   async function handleSaveNote() {
     if (!newTitle.trim() && !newBody.trim()) return;
     setIsSaving(true);

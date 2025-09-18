@@ -6,15 +6,10 @@ import { addDoc, collection, deleteDoc, doc, getDocs, query, where, orderBy, upd
 const notesRef = collection(db, "notes");
 
 export const searchNotes = async (keyword: string) => {
-  if (!auth.currentUser) throw new Error("Not logged in");
-
-  // Search by title (prefix match)
   const q = query(
     notesRef,
-    where("userId", "==", auth.currentUser?.uid),
-    orderBy("title"),
-    startAt(keyword),
-    endAt(keyword + "\uf8ff")
+    where("title", ">=", keyword),
+    where("title", "<=", keyword + "\uf8ff")
   );
 
   const snap = await getDocs(q);
