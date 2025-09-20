@@ -106,17 +106,27 @@ export default function NoteAppHome() {
         </View>
 
         {/* Quick actions */}
-        <View className="mt-4 flex-row justify-between items-center">
+        <View className="mt-4 flex-row justify-between items-center ">
           <View className="flex-row space-x-3">
-            <TouchableOpacity className="bg-white px-3 py-2 rounded-2xl shadow flex-row items-center">
-              <Feather name="plus" size={16} color="#10b981" />
-            </TouchableOpacity>
-            <TouchableOpacity className="bg-white px-3 py-2 rounded-2xl shadow flex-row items-center">
-              <Feather name="filter" size={16} color="#06b6d4" />
+            <TouchableOpacity className="bg-red-400 px-3 py-2 rounded-2xl shadow flex-row items-center"
+            onPress={() => {
+            Alert.alert("Log out", "Are you sure you want to log out?", [
+          { text: "Cancel", style: "cancel" },
+          {
+          text: "Log out",
+          style: "destructive",
+          onPress: () => {
+            // Clear any user session data here if needed
+            router.replace("/login"); // 👈 replace with your login route
+          },
+        },
+      ]);
+          }}>
             
-            </TouchableOpacity>
-          </View>
-          <TouchableOpacity
+            <Text className="text-white font-medium">Log out</Text>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity
             className="bg-white px-3 py-2 rounded-2xl shadow flex-row items-center"
             onPress={() => router.push("/(dashboard)/note")}
           >
@@ -156,6 +166,17 @@ export default function NoteAppHome() {
           )}
         </View>
       </View>
+      <View className="px-6 pt-6 flex-row justify-between items-center">
+  
+
+  <TouchableOpacity
+    className=""
+    
+  >
+    
+  </TouchableOpacity>
+</View>
+
 
       {/* Floating Action Button */}
       <View className="absolute right-6 bottom-8">
