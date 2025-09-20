@@ -158,6 +158,23 @@ export default function NoteScreen() {
         )}
       </View>
 
+      <View className="px-6 mt-4 flex-1">
+          <View className="flex-1 mt-4">
+            {notes.length === 0 ? (
+                        // Empty state
+                        <View className="flex-1 items-center justify-center">
+                          <Ionicons name="document-text-outline" size={64} color="#9ca3af" />
+                          <Text className="mt-4 text-lg font-medium text-gray-600">
+                            No  notes 
+                          </Text>
+                          <Text className="mt-1 text-sm text-gray-400">
+                            Start by creating a new  note
+                          </Text>
+                        </View>
+                      )
+            : null}          
+          </View>
+      </View>
       {/* Notes List */}
       {loading ? (
         <View className="flex-1 items-center justify-center">
@@ -189,7 +206,6 @@ export default function NoteScreen() {
                   onPress={() => handleDelete(item.id)}
                 >
                   <Ionicons name="trash-outline" size={18} color="white" />
-                  <Text className="ml-1 text-white">Delete</Text>
                 </TouchableOpacity>
               </View>
             </View>

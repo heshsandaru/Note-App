@@ -84,10 +84,8 @@ export default function NoteAppHome() {
   return (
     <SafeAreaView className="flex-1 bg-slate-50">
       <View className="px-6 pt-6">
-        <Text className="text-3xl font-extrabold text-slate-800">My Notes</Text>
-        <Text className="text-sm text-slate-500 mt-1">
-          Quickly capture ideas, to-dos and reminders.
-        </Text>
+        <Text className="text-3xl font-extrabold text-slate-800">Note App</Text>
+        
 
         {/* Search */}
         <View className="mt-4 flex-row items-center bg-white rounded-2xl p-2 shadow">
@@ -112,11 +110,10 @@ export default function NoteAppHome() {
           <View className="flex-row space-x-3">
             <TouchableOpacity className="bg-white px-3 py-2 rounded-2xl shadow flex-row items-center">
               <Feather name="plus" size={16} color="#10b981" />
-              <Text className="ml-2 text-sm text-slate-700">New</Text>
             </TouchableOpacity>
             <TouchableOpacity className="bg-white px-3 py-2 rounded-2xl shadow flex-row items-center">
               <Feather name="filter" size={16} color="#06b6d4" />
-              <Text className="ml-2 text-sm text-slate-700">Filter</Text>
+            
             </TouchableOpacity>
           </View>
           <TouchableOpacity
@@ -137,10 +134,10 @@ export default function NoteAppHome() {
             <View className="flex-1 items-center justify-center">
               <Ionicons name="document-text-outline" size={64} color="#9ca3af" />
               <Text className="mt-4 text-lg font-medium text-gray-600">
-                No notes yet
+                No temporary notes 
               </Text>
               <Text className="mt-1 text-sm text-gray-400">
-                Start by creating a new note
+                Start by creating a new temporary note
               </Text>
             </View>
           ) : (
