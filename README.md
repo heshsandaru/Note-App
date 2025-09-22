@@ -1,5 +1,24 @@
 # Welcome to Note app 👋
 
+## Overview
+
+Note app is a mobile application built with Expo and React Native that allows users to easily write and manage note. The app is designed for anyone who needs to wirting the note on the go.
+
+## Features & Functionality
+
+Edit & Delete Notes: Manage your notes with full CRUD operations.
+
+## APK
+apk link = https://drive.google.com/file/d/1wq-3__2dtR--f9AekZ9XGDuQm3X2cIKV/view?usp=drive_link
+
+## Video 
+video link = https://youtu.be/lJLz7noixt8
+
+## Screenshots
+
+
+
+
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
 ## Get started
@@ -50,8 +69,3 @@ Join our community of developers creating universal apps.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
 
 
-## APK
-apk link = https://drive.google.com/file/d/1wq-3__2dtR--f9AekZ9XGDuQm3X2cIKV/view?usp=drive_link
-
-## Video 
-video link = https://youtu.be/lJLz7noixt8
