@@ -1,4 +1,4 @@
-# Welcome to your Expo app 👋
+# Welcome to Note app 👋
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
@@ -52,3 +52,6 @@ Join our community of developers creating universal apps.
 
 ## APK
 apk link = https://drive.google.com/file/d/1wq-3__2dtR--f9AekZ9XGDuQm3X2cIKV/view?usp=drive_link
+
+## Video 
+video link = https://youtu.be/lJLz7noixt8
