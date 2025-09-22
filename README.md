@@ -16,7 +16,7 @@ video link = https://youtu.be/lJLz7noixt8
 
 ## Screenshots
 
-login 
+ 
 <img width="346" height="977" alt="login" src="https://github.com/user-attachments/assets/f0248812-2cc4-4c39-b067-fadc571c83b3" />     <img width="344" height="979" alt="register" src="https://github.com/user-attachments/assets/2e8c75d5-8323-4801-a18f-5c4a68ca8fd3" />
 <img width="344" height="983" alt="tempory notes add" src="https://github.com/user-attachments/assets/4254a5e1-3518-4a70-a62c-0feef21557f6" />
 <img width="341" height="977" alt="cloud nots add" src="https://github.com/user-attachments/assets/f071a3f6-20a8-4886-a640-0bbfa9f44b00" />
