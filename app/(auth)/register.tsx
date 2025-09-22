@@ -18,10 +18,7 @@ const Register = () => {
   const [isLodingReg, setIsLoadingReg] = useState<boolean>(false)
 
   const handleRegister = async () => {
-    // if(!email){
-
-    // }
-    // 
+    
     if (isLodingReg) return
     setIsLoadingReg(true)
     await register(email, password)
@@ -32,7 +29,6 @@ const Register = () => {
       .catch((err) => {
         console.error(err)
         Alert.alert("Registration fail", "Somthing went wrong")
-        // import { Alert } from "react-native"
       })
       .finally(() => {
         setIsLoadingReg(false)
@@ -46,7 +42,7 @@ const Register = () => {
         Create Account ✨
       </Text>
 
-      {/* Email Input */}
+      
       <View className="mb-4">
         <Text className="text-gray-700 font-medium mb-1">Email</Text>
         <TextInput
@@ -58,7 +54,6 @@ const Register = () => {
         />
       </View>
 
-      {/* Password Input */}
       <View className="mb-4">
         <Text className="text-gray-700 font-medium mb-1">Password</Text>
         <TextInput
@@ -71,7 +66,6 @@ const Register = () => {
         />
       </View>
 
-      {/* Register Button */}
       <TouchableOpacity
         className="bg-green-600 p-4 rounded-xl mt-2 shadow-md"
         onPress={handleRegister}
@@ -85,7 +79,7 @@ const Register = () => {
         )}
       </TouchableOpacity>
 
-      {/* Divider */}
+      
       <View className="flex-row items-center my-6">
         <View className="flex-1 h-[1px] bg-gray-300" />
         <Text className="px-3 text-gray-500">or</Text>
