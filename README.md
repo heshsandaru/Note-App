@@ -12,7 +12,7 @@ Edit & Delete Notes: Manage your notes with full CRUD operations.
 apk link = https://drive.google.com/file/d/1wq-3__2dtR--f9AekZ9XGDuQm3X2cIKV/view?usp=drive_link
 
 ## Video 
-video link = https://youtu.be/_Y92FgN14mY
+video link = https://youtu.be/Mzb_tIJ9WWY
 
 ## Screenshots
 
